@@ -37,6 +37,11 @@ sock.settimeout(0.00001)
 SENSOR_DATA_DICT = {4: 4,
                     5: 5}
 
+ACTUATOR_DATA_DICT = {1: 4,
+                      2: 5,
+                      3: 6
+    }
+
 def get_latest_messege(ReceiveIP, ReceivePORT):
     data = []
     while True:
@@ -61,6 +66,15 @@ def get_sensor_values(data):
     return sensor_dict
     
 
+
+def read_actuator(ID):
+    global ACTUATOR_DATA_DICT
+    return ACTUATOR_DATA_DICT[ID]
+
+def write_actuator(ID, value):
+    global ACTUATOR_DATA_DICT
+    ACTUATOR_DATA_DICT[ID] = value
+    return
     
 def read_sensor(ID):
     global SENSOR_DATA_DICT
@@ -70,10 +84,12 @@ def read_sensor(ID):
     
     return SENSOR_DATA_DICT[ID]
 
+
+    
+
 class SensorValueObject(bac.object.AnalogValueObject):
     properties = []
-    def __init__(self, readPropertyMethod, **kwargs):
-        bac.object.AnalogValueObject.__init__(self, **kwargs)
+    
 
 class SensorValueProperty(bac.object.Property):
   #creates a subclass of the sensorobject
@@ -87,6 +103,24 @@ class SensorValueProperty(bac.object.Property):
    
   def WriteProperty(self, obj, value, arrayIndex=None, priority=None, direct=False):
     raise  bac.errors.ExecutionError(errorClass='property', errorCode='writeAccessDenied')
+
+
+class ActuatorObject(bac.object.AnalogOutputObject):
+    properties = []
+
+class ActuatorValueProperty(bac.object.WritableProperty):
+    def __init__(self, identifier, actuatorID):
+        bac.object.WritableProperty.__init__(self, identifier, bac.primitivedata.Real)
+        self.actuatorID = actuatorID
+    
+    def ReadProperty(self, obj, arrayIndex = None): 
+        return read_actuator(self.actuatorID)
+        
+    def WriteProperty(self, obj, value, arrayIndex=None, priority=None, direct=False):
+        return write_actuator(self.actuatorID, value)
+        
+        
+        
 
 
 def main():
@@ -110,6 +144,13 @@ def main():
         _log.debug("initialization")
         # code goes here...
         
+        actuators = [
+            {'name': 'HR:DC01:Damper_outside_intake', 'id': 1, 'units': 'percent'},
+            {'name': 'HR:DC02:Damper_cross', 'id': 2, 'units': 'percent'},
+            {'name': 'HR:DC03:Damper_lab_intake', 'id': 3, 'units': 'percent'}
+            
+            ]
+        
         
         sensors = [
             {'name': 'HR:TT01:Temperature_outside_intake', 'id': 1, 'units': 'degreesCelsius'},
@@ -128,9 +169,7 @@ def main():
             {'name': 'HR:TT14:Temperature_watertank_middle', 'id': 14, 'units': 'degreesCelsius'},
             {'name': 'HR:TT15:Temperature_watertank_bottom', 'id': 15, 'units': 'degreesCelsius'},
             
-            {'name': 'HR:DC01:Damper_outside_intake', 'id': 21, 'units': 'percent'},
-            {'name': 'HR:DC02:Damper_cross', 'id': 22, 'units': 'percent'},
-            {'name': 'HR:DC03:Damper_lab_intake', 'id': 23, 'units': 'percent'}
+
             
           # {'name': 'HR:FC01:Fan_intake', 'id': 31, 'units': 'percent'},
           # {'name': 'HR:FC02:Fan_exhaust', 'id': 32, 'units': 'percent'},
@@ -162,16 +201,27 @@ def main():
         services_supported = this_application.get_services_supported()
         if _debug: _log.debug("    - services_supported: %r", services_supported)
         
+        
+        # initialize all sensors
         for sensor in sensors:
             sensor_object = SensorValueObject(
-                lambda: read_sensor(sensor['id']),
                 objectIdentifier=('analogValue', sensor['id']),
                 objectName=sensor['name'],
                 units=sensor['units']
                 )
             sensor_object.add_property(SensorValueProperty('presentValue', sensor['id']))
-    # Add to application
             this_application.add_object(sensor_object)
+            
+            
+        # initialize all actuators
+        for actuator in actuators:
+            actuator_object = ActuatorObject(
+                objectIdentifier = ('analogOutput', actuator['id']), 
+                objectName=actuator['name'],
+                units = ['units']
+                )
+            actuator_object.add_property(ActuatorValueProperty('presentValue', actuator['id']))
+            this_application.add_object(actuator_object)
         
         run()
         _log.debug("running")
