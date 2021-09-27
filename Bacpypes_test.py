@@ -20,17 +20,18 @@ import re
 import socket
 import struct
 import time
-#IP = "169.254.72.213"
+#DELL_IP = "169.254.72.213"
 #gets data from local host
-IP = "127.0.0.1"
-RIP = "127.0.0.1"
-PORT = 25000
-RPORT = 25001
+DELL_IP = "172.26.13.96"
+HVAC_IP = "172.26.12.106"
+DELL_PORT = 25000
+HVAC_PORT = 25000
+HVAC_PORT_TRANSMIT = 4796
 NUM_SENSORS = 2
 
 sock = socket.socket(socket.AF_INET, # Internet
                       socket.SOCK_DGRAM) # UDP
-sock.bind((IP, PORT))
+sock.bind((DELL_IP, DELL_PORT))
 sock.settimeout(0.00001)
 
 # contains valid sensors and initial values
@@ -74,11 +75,18 @@ def read_actuator(ID):
 def write_actuator(ID, value):
     global ACTUATOR_DATA_DICT
     ACTUATOR_DATA_DICT[ID] = value
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    message = bytes()
+    for k, v in ACTUATOR_DATA_DICT.items():
+        message += struct.pack("B", k)
+        message += struct.pack("f", v)
+    sock.sendto(message, (HVAC_IP, HVAC_PORT))
+    
     return
     
 def read_sensor(ID):
     global SENSOR_DATA_DICT
-    data = get_latest_messege(RIP, RPORT)
+    data = get_latest_messege(HVAC_IP, HVAC_PORT_TRANSMIT)
     if data != -1:
         SENSOR_DATA_DICT = get_sensor_values(data)
     
