@@ -35,8 +35,7 @@ sock.bind((DELL_IP, DELL_PORT))
 sock.settimeout(0.00001)
 
 # contains valid sensors and initial values
-SENSOR_DATA_DICT = {4: 4,
-                    5: 5}
+SENSOR_DATA_DICT = {k:0 for k in range(1, 16)}
 
 ACTUATOR_DATA_DICT = {1: 4,
                       2: 5,
@@ -153,14 +152,40 @@ def main():
         # code goes here...
         
         actuators = [
-            {'name': 'HR:DC01:Damper_outside_intake', 'id': 1, 'units': 'percent'},
-            {'name': 'HR:DC02:Damper_cross', 'id': 2, 'units': 'percent'},
-            {'name': 'HR:DC03:Damper_lab_intake', 'id': 3, 'units': 'percent'}
+            {'name': 'HR:DC01:Damper_outside_intake', 'id': 1, 'units': 'noUnits'},
+            {'name': 'HR:DC02:Damper_cross', 'id': 2, 'units': 'noUnits'},
+            {'name': 'HR:DC03:Damper_lab_intake', 'id': 3, 'units': 'noUnits'},
+            
+            {'name': 'HR:FC01:Fan_intake', 'id': 11, 'units': 'noUnits'},
+            {'name': 'HR:FC02:Fan_exhaust', 'id': 12, 'units': 'noUnits'},
+            
+            {'name': 'HR:JC01-1:Electric_heater', 'id': 21, 'units': 'noUnits'},
+            {'name': 'HR:JC01-2:Electric_heater', 'id': 22, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-3:Electric_heater', 'id': 23, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-4:Electric_heater', 'id': 24, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-5:Electric_heater', 'id': 25, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-6:Electric_heater', 'id': 26, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-7:Electric_heater', 'id': 27, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-8:Electric_heater', 'id': 28, 'units': 'noUnits'}, 
+            {'name': 'HR:JC01-9:Electric_heater', 'id': 29, 'units': 'noUnits'}, 
+            
+            {'name': 'HR:VC01:Solonoid_valve_tank', 'id': 31, 'units': 'noUnits'}, 
+            {'name': 'HR:VC02:3-way_valve_tank', 'id': 32, 'units': 'noUnits'}, 
+            {'name': 'HR:VC03:3-way_valve_tank_heater', 'id': 33, 'units': 'noUnits'}, 
+            {'name': 'HR:VC04:3-way_valve_condesor', 'id': 34, 'units': 'noUnits'}, 
+            
+            {'name': 'HR:SC01:Pump_into_tank', 'id': 41, 'units': 'noUnits'}, 
+            {'name': 'HR:SC02:Pump_into_condensor', 'id': 42, 'units': 'noUnits'}
+            
+            
+            
+            
             
             ]
         
         
         sensors = [
+        
             {'name': 'HR:TT01:Temperature_outside_intake', 'id': 1, 'units': 'degreesCelsius'},
             {'name': 'HR:TT02:Temperature_after_crossflow_damper', 'id': 2, 'units': 'degreesCelsius'},
             {'name': 'HR:TT03:Temperature_outside', 'id': 3, 'units': 'degreesCelsius'},
@@ -175,32 +200,17 @@ def main():
             {'name': 'HR:TT12:Temperature_watertank_heating_out', 'id': 12, 'units': 'degreesCelsius'},
             {'name': 'HR:TT13:Temperature_watertank_top', 'id': 13, 'units': 'degreesCelsius'},
             {'name': 'HR:TT14:Temperature_watertank_middle', 'id': 14, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT15:Temperature_watertank_bottom', 'id': 15, 'units': 'degreesCelsius'},
+            {'name': 'HR:TT15:Temperature_watertank_bottom', 'id': 15, 'units': 'degreesCelsius'},     
             
+            {'name': 'HR:DC01:Damper_outside_intake_opening', 'id': 21, 'units': 'noUnits'},  
+            {'name': 'HR:DC02:Damper_cross_opening', 'id': 22, 'units': 'noUnits'},  
+            {'name': 'HR:DC03:Damper_lab_intake_opening', 'id': 23, 'units': 'noUnits'},  
+         
+            {'name': 'HR:VC01:Solonoid_valve_tank_opening', 'id': 31, 'units': 'noUnits'}, 
+            {'name': 'HR:VC02:3-way_valve_tank_opening', 'id': 32, 'units': 'noUnits'}, 
+            {'name': 'HR:VC03:3-way_valve_tank_heater_opening', 'id': 33, 'units': 'noUnits'}, 
+            {'name': 'HR:VC04:3-way_valve_condesor_opening', 'id': 34, 'units': 'noUnits'},
 
-            
-          # {'name': 'HR:FC01:Fan_intake', 'id': 31, 'units': 'percent'},
-          # {'name': 'HR:FC02:Fan_exhaust', 'id': 32, 'units': 'percent'},
-          # 
-          # {'name': 'HR:FC01:Fan_intake', 'id': 31, 'units': 'percent'},
-          # {'name': 'HR:FC02:Fan_exhaust', 'id': 32, 'units': 'percent'},
-          # {'name': 'HR:FC01:Fan_intake', 'id': 31, 'units': 'percent'},
-          # {'name': 'HR:FC02:Fan_exhaust', 'id': 32, 'units': 'percent'},
-          # 
-          # {'name': 'Condenser_Pressure', 'id': 10, 'units': 'bars'},
-          # {'name': 'Valve_Opening_Degree', 'id': 11, 'units': 'percent'},
-          # {'name': 'Compressor_Onnes', 'id': 12, 'units': 'percent'},
-          # {'name': 'Condenser_Vent_Speed', 'id': 13, 'units': 'percent'}
-          # {'name': 'Outside_Temperature', 'id': 15, 'units': 'degreesCelsius'},
-          # {'name': 'Input_Temperature', 'id': 16, 'units': 'degreesCelsius'},
-          # {'name': 'Room_Temperature', 'id': 17, 'units': 'degreesCelsius'},
-          # {'name': 'WatchDog', 'id': 18, 'units': 'degreesCelsius'},
-          # {'name': 'Fan_speed', 'id': 19, 'units': 'degreesCelsius'},
-          # {'name': 'Evaporator_Input_Temperature', 'id': 20, 'units': 'degreesCelsius'},
-          # {'name': 'Condenser_Pressure', 'id': 21, 'units': 'bars'},
-          # {'name': 'Valve_Opening_Degree', 'id': 22, 'units': 'percent'},
-          # {'name': 'Compressor_Onnes', 'id': 23, 'units': 'percent'},
-          # {'name': 'Condenser_Vent_Speed', 'id': 24, 'units': 'percent'}
         ]
         
         this_application = BIPSimpleApplication(this_device, args.ini.address)
