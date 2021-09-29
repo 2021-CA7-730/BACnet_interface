@@ -35,12 +35,9 @@ sock.bind((DELL_IP, DELL_PORT))
 sock.settimeout(0.00001)
 
 # contains valid sensors and initial values
-SENSOR_DATA_DICT = {k:0 for k in range(1, 16)}
+SENSOR_DATA_DICT = {k:0 for k in range(1, 256)}
 
-ACTUATOR_DATA_DICT = {1: 4,
-                      2: 5,
-                      3: 6
-    }
+ACTUATOR_DATA_DICT = {k:0 for k in range(1, 256)}
 
 def get_latest_messege(ReceiveIP, ReceivePORT):
     data = []
@@ -209,7 +206,7 @@ def main():
             {'name': 'HR:VC01:Solonoid_valve_tank_opening', 'id': 31, 'units': 'noUnits'}, 
             {'name': 'HR:VC02:3-way_valve_tank_opening', 'id': 32, 'units': 'noUnits'}, 
             {'name': 'HR:VC03:3-way_valve_tank_heater_opening', 'id': 33, 'units': 'noUnits'}, 
-            {'name': 'HR:VC04:3-way_valve_condesor_opening', 'id': 34, 'units': 'noUnits'},
+            {'name': 'HR:VC04:3-way_valve_condesor_opening', 'id': 34, 'units': 'noUnits'}
 
         ]
         
