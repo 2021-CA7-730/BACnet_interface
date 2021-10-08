@@ -40,6 +40,8 @@ sock = socket.socket(socket.AF_INET,  # Internet
 sock.bind((DELL_IP, DELL_PORT))
 sock.settimeout(0.00001)
 
+# objects are passed as reference so passing the socket is not a problem
+
 
 class SimulinkInterface:
     def __init__(self, receive_address: (str, int),
@@ -85,13 +87,13 @@ class SensorValueObject(bac.object.AnalogValueObject):
 class SensorValueProperty(bac.object.Property):
     # creates a subclass of the sensorobject
     # passes an interface to the target pc (by refference immutable)
-    def __init__(self, identifier, sensorID, target, simulink_interface_list):
+    def __init__(self, identifier, sensorID, target, simulink_interface_list, dictionary):
         bac.object.Property.__init__(
             self, identifier, bac.primitivedata.Real, default=0.0,
             optional=True, mutable=False)
         self.sensorID = sensorID
         self.simulink_interface_list = simulink_interface_list
-        self.SENSOR_DATA_DICT = {k: 0 for k in range(1, 256)}
+        self.SENSOR_DATA_DICT = dictionary
 
     def read_sensor(self, ID, target):
         data = self.simulink_interface_list[target].get_latest_message()
@@ -117,12 +119,12 @@ class ActuatorObject(bac.object.AnalogOutputObject):
 
 class ActuatorValueProperty(bac.object.WritableProperty):
     def __init__(self, identifier, actuatorID, target,
-                 simulink_interface_list):
+                 simulink_interface_list, dictionary):
         bac.object.WritableProperty.__init__(self, identifier,
                                              bac.primitivedata.Real)
         self.actuatorID = actuatorID
         self.target = target
-        self.ACTUATOR_DATA_DICT = {k: 0 for k in range(1, 256)}
+        self.ACTUATOR_DATA_DICT = dictionary
         self.simulink_interface_list = simulink_interface_list
 
     def read_actuator(self, ID):
@@ -148,6 +150,8 @@ def main():
     interface2 = SimulinkInterface(
         (WC_IP, WC_PORT_TRANSMIT), (WC_IP, WC_PORT), sock)
     interface_list = (interface1, interface2)
+    ACTUATOR_DICT = {k: 0 for k in range(0, 256)}
+    SENSOR_DICT = {k: 0 for k in range(0, 256)}
 
     this_device = LocalDeviceObject(
         objectName=args.ini.objectname,
@@ -286,7 +290,7 @@ def main():
             )
             sensor_object.add_property(
                 SensorValueProperty('presentValue', sensor['id'],
-                                    sensor['target'], interface_list))
+                                    sensor['target'], interface_list, SENSOR_DICT))
             this_application.add_object(sensor_object)
 
         # initialize all actuators
@@ -298,7 +302,7 @@ def main():
             )
             actuator_object.add_property(
                 ActuatorValueProperty('presentValue', actuator['id'],
-                                      actuator['target'], interface_list))
+                                      actuator['target'], interface_list, ACTUATOR_DICT))
             this_application.add_object(actuator_object)
 
         run()
