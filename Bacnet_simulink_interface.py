@@ -9,6 +9,7 @@ import struct
 import socket
 import re
 import sys
+import json
 import bacpypes as bac
 from bacpypes.debugging import bacpypes_debugging, ModuleLogger
 from bacpypes.consolelogging import ConfigArgumentParser
@@ -173,105 +174,8 @@ def main():
         _log.debug("initialization")
         # code goes here...
 
-        actuators = [
-            # Dampers
-            {'name': 'HR:DC01:Damper_outside_intake',
-                'id': 1, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:DC02:Damper_cross', 'id': 2,
-                'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:DC03:Damper_lab_intake',
-                'id': 3, 'target': 0, 'units': 'noUnits'},
-
-            {'name': 'HR:FC01:Fan_intake', 'id': 11,
-                'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:FC02:Fan_exhaust', 'id': 12,
-                'target': 0, 'units': 'noUnits'},
-            # Heaters
-            {'name': 'HR:JC01-1:Electric_heater',
-                'id': 21, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-2:Electric_heater',
-                'id': 22, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-3:Electric_heater',
-                'id': 23, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-4:Electric_heater',
-                'id': 24, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-5:Electric_heater',
-                'id': 25, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-6:Electric_heater',
-                'id': 26, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-7:Electric_heater',
-                'id': 27, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-8:Electric_heater',
-                'id': 28, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:JC01-9:Electric_heater',
-                'id': 29, 'target': 0, 'units': 'noUnits'},
-            # Valves
-            {'name': 'HR:VC01:Solonoid_valve_tank',
-                'id': 31, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC02:3-way_valve_tank', 'id': 32,
-                'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC03:3-way_valve_tank_heater',
-                'id': 33, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC04:3-way_valve_condesor',
-                'id': 34, 'target': 0, 'units': 'noUnits'},
-
-            {'name': 'HR:SC01:Pump_into_tank', 'id': 41,
-                'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:SC02:Pump_into_condensor',
-                'id': 42, 'target': 0, 'units': 'noUnits'}
-
-        ]
-
-        sensors = [
-
-            {'name': 'HR:TT01:Temperature_outside_intake',
-                'id': 1, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT02:Temperature_after_crossflow_damper',
-                'id': 2, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT03:Temperature_outside',
-                'id': 3, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT04:Temperature_after_heating_coil',
-                'id': 4, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT05:Temperature_lab_exhaust',
-                'id': 5, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT06:Temperature_lab_intake',
-                'id': 6, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT07:Temperature_accumulator',
-                'id': 7, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT08:Temperature_condensor',
-                'id': 8, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT09:Temperature_condesor_manifold',
-                'id': 9, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT10:Temperature_heatingcoil_inflow',
-                'id': 10, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT11:Temperature_heatingcoil_outflow',
-                'id': 11, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT12:Temperature_watertank_heating_out',
-                'id': 12, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT13:Temperature_watertank_top',
-                'id': 13, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT14:Temperature_watertank_middle',
-                'id': 14, 'target': 0, 'units': 'degreesCelsius'},
-            {'name': 'HR:TT15:Temperature_watertank_bottom',
-                'id': 15, 'target': 0, 'units': 'degreesCelsius'},
-
-            {'name': 'HR:DC01:Damper_outside_intake_opening',
-                'id': 21, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:DC02:Damper_cross_opening',
-                'id': 22, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:DC03:Damper_lab_intake_opening',
-                'id': 23, 'target': 0, 'units': 'noUnits'},
-
-            {'name': 'HR:VC01:Solonoid_valve_tank_opening',
-                'id': 31, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC02:3-way_valve_tank_opening',
-                'id': 32, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC03:3-way_valve_tank_heater_opening',
-                'id': 33, 'target': 0, 'units': 'noUnits'},
-            {'name': 'HR:VC04:3-way_valve_condesor_opening',
-                'id': 34, 'target': 0, 'units': 'noUnits'}
-
-        ]
+        sensors = json.load(open("sensors.json"))
+        actuators = json.load(open("actuators.json"))
 
         this_application = BIPSimpleApplication(this_device, args.ini.address)
         if _debug:

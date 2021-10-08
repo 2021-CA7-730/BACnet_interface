@@ -1,0 +1,25 @@
+[
+    {"name": "HR:DC01:Damper_outside_intake", "id": 1, "target": 0, "units": "noUnits"},
+    {"name": "HR:DC02:Damper_cross", "id": 2, "target": 0, "units": "noUnits"},
+    {"name": "HR:DC03:Damper_lab_intake", "id": 3, "target": 0, "units": "noUnits"},
+
+    {"name": "HR:FC01:Fan_intake", "id": 11, "target": 0, "units": "noUnits"},
+    {"name": "HR:FC02:Fan_exhaust", "id": 12, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-1:Electric_heater", "id": 21, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-2:Electric_heater", "id": 22, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-3:Electric_heater", "id": 23, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-4:Electric_heater", "id": 24, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-5:Electric_heater", "id": 25, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-6:Electric_heater", "id": 26, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-7:Electric_heater", "id": 27, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-8:Electric_heater", "id": 28, "target": 0, "units": "noUnits"},
+    {"name": "HR:JC01-9:Electric_heater", "id": 29, "target": 0, "units": "noUnits"},
+
+    {"name": "HR:VC01:Solonoid_valve_tank", "id": 31, "target": 0, "units": "noUnits"},
+    {"name": "HR:VC02:3-way_valve_tank", "id": 32, "target": 0, "units": "noUnits"},
+    {"name": "HR:VC03:3-way_valve_tank_heater", "id": 33, "target": 0, "units": "noUnits"},
+    {"name": "HR:VC04:3-way_valve_condesor", "id": 34, "target": 0, "units": "noUnits"},
+
+    {"name": "HR:SC01:Pump_into_tank", "id": 41, "target": 0, "units": "noUnits"},
+    {"name": "HR:SC02:Pump_into_condensor", "id": 42, "target": 0, "units": "noUnits"}
+]
