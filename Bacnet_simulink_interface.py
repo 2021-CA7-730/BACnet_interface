@@ -28,7 +28,7 @@ WC_IP = "127.0.0.5"
 # gets data from local host
 # DELL_IP = "172.26.13.96"
 # HVAC_IP = "172.26.12.106"
-# WC_IP = "172.26.12.113"
+# WC_IP = "172.26.12.136"
 
 DELL_PORT = 25000
 HVAC_PORT = 25000
@@ -50,19 +50,21 @@ class SimulinkInterface:
         self.receive_address = receive_address
         self.target_address = target_address
         self.sock = sock
+        self.data = []
 
     def get_latest_message(self):
-        data = []
+        if len(self.data) > 100:
+            self.data = self.data[50:-1]
         while True:
             try:
-                data.append(self.sock.recvfrom(1024))
+                self.data.append(self.sock.recvfrom(1024))
             except socket.timeout:
-                for messages in reversed(data):
-                    if messages[1] == self:
+                for messages in reversed(self.data):
+                    if messages[1] == self.receive_address:
                         return messages[0]
                 return -1
 
-    def unpack_simulink_message(data):
+    def unpack_simulink_message(self, data):
         # splits the data stream up in fives and updates the values of the idx
         sensor_dict = {}
         sensor_IDS = [data[i] for i in range(0, len(data), 5)]
