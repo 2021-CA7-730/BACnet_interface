@@ -92,6 +92,7 @@ class SensorValueProperty(bac.object.Property):
         bac.object.Property.__init__(
             self, identifier, bac.primitivedata.Real, default=0.0,
             optional=True, mutable=False)
+        self.target = target
         self.sensorID = sensorID
         self.simulink_interface_list = simulink_interface_list
         self.SENSOR_DATA_DICT = dictionary
@@ -106,7 +107,7 @@ class SensorValueProperty(bac.object.Property):
 
     def ReadProperty(self, obj, arrayIndex=None):
         # reads data from sensor into the right ID
-        return self.read_sensor(self.sensorID)
+        return self.read_sensor(self.sensorID, self.target)
 
     def WriteProperty(self, obj, value, arrayIndex=None, priority=None,
                       direct=False):
