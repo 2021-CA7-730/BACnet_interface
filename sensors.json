@@ -22,5 +22,30 @@
     {"name": "HR:VC01:Solonoid_valve_tank_opening", "id": 31, "target": 0, "units": "noUnits"},
     {"name": "HR:VC02:3-way_valve_tank_opening", "id": 32, "target": 0, "units": "noUnits"},
     {"name": "HR:VC03:3-way_valve_tank_heater_opening", "id": 33, "target": 0, "units": "noUnits"},
-    {"name": "HR:VC04:3-way_valve_condesor_opening", "id": 34, "target": 0, "units": "noUnits"}
+    {"name": "HR:VC04:3-way_valve_condesor_opening", "id": 34, "target": 0, "units": "noUnits"},
+
+
+    {"name": "WC:TT01:Temperature_evaporator_after", "id": 90, "target": 1, "units": "degreesCelsius"},
+    {"name": "WC:TT02:Temperature_HVAC_condensor_before", "id": 91, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT02b:Temperature_HVAC_condensor_after", "id": 92, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT03:Temperature_fan_condensor_after", "id": 93, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT04:Temperature_evaporator_before", "id": 94, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT05:Temperature_evaporator_after", "id": 95, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT06:Temperature_evaporator_after", "id": 96, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT07:Temperature_watertank_before", "id": 97, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT08:Temperature_watertank_after", "id": 98, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT09:Temperature_fan_air_intake", "id": 99, "target": 1, "units": "degreesCelcius"},
+    {"name": "WC:TT10:Temperature_fan_air_exhaust", "id": 100, "target": 1, "units": "degreesCelcius"},
+
+    {"name": "WC:PT01:Pressure_compressor_before", "id": 111, "target": 1, "units": "noUnits"},
+    {"name": "WC:PT02:Pressure_compressor_after", "id": 112, "target": 1, "units": "noUnits"},
+    {"name": "WC:PT03:Pressure_shutdown_before", "id": 113, "target": 1, "units": "noUnits"},
+    {"name": "WC:PT03:Pressure_shutdown_after", "id": 114, "target": 1, "units": "noUnits"},
+
+    {"name": "WC:FT01:Flow_shutdown_before", "id": 120, "target": 1, "units": "noUnits"},
+
+    {"name": "WC:JT01:Unknown_compressor", "id": 125, "target": 1, "units": "noUnits"},
+    {"name": "WC:JT02:Unknown_fan", "id": 126, "target": 1, "units": "noUnits"},
+    {"name": "WC:JT03:Unknown_pump", "id": 127, "target": 1, "units": "noUnits"},
+    {"name": "WC:JT04:Unknown_heater", "id": 128, "target": 1, "units": "noUnits"}
 ]
