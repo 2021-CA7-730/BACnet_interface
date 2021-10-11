@@ -21,14 +21,14 @@ _log = ModuleLogger(globals())
 args = ConfigArgumentParser(description=__doc__).parse_args()
 
 # Debug
-DELL_IP = "127.0.0.3"
-HVAC_IP = "127.0.0.4"
-WC_IP = "127.0.0.5"
+# DELL_IP = "192.168.1.103"
+# HVAC_IP = "192.168.1.220"
+# WC_IP = "192.168.1.220"
 
 # gets data from local host
-# DELL_IP = "172.26.13.96"
-# HVAC_IP = "172.26.12.106"
-# WC_IP = "172.26.12.136"
+DELL_IP = "172.26.13.96"
+HVAC_IP = "172.26.12.106"
+WC_IP = "172.26.12.136"
 
 DELL_PORT = 25000
 HVAC_PORT = 25000
@@ -50,19 +50,17 @@ class SimulinkInterface:
         self.receive_address = receive_address
         self.target_address = target_address
         self.sock = sock
-        self.data = []
+        self.data = [-1]
 
     def get_latest_message(self):
-        if len(self.data) > 100:
-            self.data = self.data[50:-1]
+
         while True:
             try:
-                self.data.append(self.sock.recvfrom(1024))
+                temp = self.sock.recvfrom(1024)
+                if temp[1] == self.receive_address:
+                    self.data.append(temp[0])
             except socket.timeout:
-                for messages in reversed(self.data):
-                    if messages[1] == self.receive_address:
-                        return messages[0]
-                return -1
+                return self.data[-1]
 
     def unpack_simulink_message(self, data):
         # splits the data stream up in fives and updates the values of the idx
@@ -154,8 +152,8 @@ def main():
     interface2 = SimulinkInterface(
         (WC_IP, WC_PORT_TRANSMIT), (WC_IP, WC_PORT), sock)
     interface_list = (interface1, interface2)
-    ACTUATOR_DICT = {k: 0 for k in range(0, 256)}
-    SENSOR_DICT = {k: 0 for k in range(0, 256)}
+    ACTUATOR_DICT = {k: 0 for k in range(1, 256)}
+    SENSOR_DICT = {k: 0 for k in range(1, 256)}
 
     this_device = LocalDeviceObject(
         objectName=args.ini.objectname,
