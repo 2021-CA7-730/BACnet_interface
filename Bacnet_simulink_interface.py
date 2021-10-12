@@ -60,7 +60,8 @@ class SimulinkInterface:
                 if temp[1] == self.receive_address:
                     self.data.append(temp[0])
             except socket.timeout:
-                return self.data[-1]
+                self.data = [self.data[-1]]
+                return self.data[0]
 
     def unpack_simulink_message(self, data):
         # splits the data stream up in fives and updates the values of the idx
