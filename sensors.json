@@ -40,12 +40,16 @@
     {"name": "WC:PT01:Pressure_compressor_before", "id": 111, "target": 1, "units": "noUnits"},
     {"name": "WC:PT02:Pressure_compressor_after", "id": 112, "target": 1, "units": "noUnits"},
     {"name": "WC:PT03:Pressure_shutdown_before", "id": 113, "target": 1, "units": "noUnits"},
-    {"name": "WC:PT03:Pressure_shutdown_after", "id": 114, "target": 1, "units": "noUnits"},
+    {"name": "WC:PT04:Pressure_shutdown_after", "id": 114, "target": 1, "units": "noUnits"},
 
     {"name": "WC:FT01:Flow_shutdown_before", "id": 120, "target": 1, "units": "noUnits"},
+	{"name": "WC:FT03:Flow_watertank_before", "id": 121, "target": 1, "units": "noUnits"},
 
     {"name": "WC:JT01:Unknown_compressor", "id": 125, "target": 1, "units": "noUnits"},
     {"name": "WC:JT02:Unknown_fan", "id": 126, "target": 1, "units": "noUnits"},
     {"name": "WC:JT03:Unknown_pump", "id": 127, "target": 1, "units": "noUnits"},
-    {"name": "WC:JT04:Unknown_heater", "id": 128, "target": 1, "units": "noUnits"}
+    {"name": "WC:JT04:Unknown_heater", "id": 128, "target": 1, "units": "noUnits"},
+	
+	{"name": "WC:DR01:Superheat", "id": 130, "target": 1, "units": "degreesCelsius"},
+	{"name": "WC:DR01:Superheat_ref", "id": 131, "target": 1, "units": "degreesCelsius"}
 ]
