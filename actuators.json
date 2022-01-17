@@ -5,6 +5,7 @@
 
     {"name": "HR:FC01:Fan_intake", "id": 11, "target": 0, "units": "noUnits"},
     {"name": "HR:FC02:Fan_exhaust", "id": 12, "target": 0, "units": "noUnits"},
+	
     {"name": "HR:JC01-1:Electric_heater", "id": 21, "target": 0, "units": "noUnits"},
     {"name": "HR:JC01-2:Electric_heater", "id": 22, "target": 0, "units": "noUnits"},
     {"name": "HR:JC01-3:Electric_heater", "id": 23, "target": 0, "units": "noUnits"},
@@ -19,11 +20,15 @@
     {"name": "HR:VC02:3-way_valve_tank", "id": 32, "target": 0, "units": "noUnits"},
     {"name": "HR:VC03:3-way_valve_tank_heater", "id": 33, "target": 0, "units": "noUnits"},
     {"name": "HR:VC04:3-way_valve_condensor", "id": 34, "target": 0, "units": "noUnits"},
-
+	
     {"name": "HR:SC01:Pump_into_tank", "id": 41, "target": 0, "units": "noUnits"},
     {"name": "HR:SC02:Pump_into_condensor", "id": 42, "target": 0, "units": "noUnits"},
+	{"name": "HR:SC01:Pump_into_tank_on", "id": 43, "target": 0, "units": "noUnits"},
+    {"name": "HR:SC02:Pump_into_condensor_on", "id": 44, "target": 0, "units": "noUnits"},
 
-
+    {"name": "HR:TT10_ref:Temperature_heatingcoil_inflow_reference", "id": 50, "target": 0, "units": "noUnits"},
+	
+	
     {"name": "WC:VC01:Solenoid_valve_evaporator", "id": 80, "target": 1, "units": "noUnits"},
     {"name": "WC:VC02:Solenoid_valve_shutdown", "id": 81, "target": 1, "units": "noUnits"},
     {"name": "WC:VC03:3-way_valve_condensor", "id": 82, "target": 1, "units": "noUnits"},
@@ -33,5 +38,6 @@
 
     {"name": "WC:SC01:Speed_compressor", "id": 90, "target": 1, "units": "noUnits"},
     {"name": "WC:SC02:Speed_fan", "id": 91, "target": 1, "units": "noUnits"},
-    {"name": "WC:SC02:Speed_pump", "id": 92, "target": 1, "units": "noUnits"}
+    {"name": "WC:SC02:Speed_pump", "id": 92, "target": 1, "units": "noUnits"},
+	{"name": "WC:TURN_ON", "id": 93, "target": 1, "units": "noUnits"}
 ]

@@ -14,6 +14,8 @@
     {"name": "HR:TT13:Temperature_watertank_top", "id": 13, "target": 0, "units": "degreesCelsius"},
     {"name": "HR:TT14:Temperature_watertank_middle", "id": 14, "target": 0, "units": "degreesCelsius"},
     {"name": "HR:TT15:Temperature_watertank_bottom", "id": 15, "target": 0, "units": "degreesCelsius"},
+    {"name": "HR:C02:sensor", "id": 16, "target": 0, "units": "noUnits"},
+    {"name": "HR:TT017:Temperature_inside_lab", "id": 17, "target": 0, "units": "noUnits"},
 
     {"name": "HR:DC01:Damper_outside_intake_opening", "id": 21, "target": 0, "units": "noUnits"},
     {"name": "HR:DC02:Damper_cross_opening", "id": 22, "target": 0, "units": "noUnits"},
@@ -23,8 +25,9 @@
     {"name": "HR:VC02:3-way_valve_tank_opening", "id": 32, "target": 0, "units": "noUnits"},
     {"name": "HR:VC03:3-way_valve_tank_heater_opening", "id": 33, "target": 0, "units": "noUnits"},
     {"name": "HR:VC04:3-way_valve_condesor_opening", "id": 34, "target": 0, "units": "noUnits"},
-
-
+    
+	
+	
     {"name": "WC:TT01:Temperature_evaporator_after", "id": 90, "target": 1, "units": "degreesCelsius"},
     {"name": "WC:TT02:Temperature_HVAC_condensor_before", "id": 91, "target": 1, "units": "degreesCelsius"},
     {"name": "WC:TT02b:Temperature_HVAC_condensor_after", "id": 92, "target": 1, "units": "degreesCelsius"},
@@ -51,5 +54,6 @@
     {"name": "WC:JT04:Unknown_heater", "id": 128, "target": 1, "units": "noUnits"},
 	
 	{"name": "WC:DR01:Superheat", "id": 130, "target": 1, "units": "degreesCelsius"},
-	{"name": "WC:DR01:Superheat_ref", "id": 131, "target": 1, "units": "degreesCelsius"}
+	{"name": "WC:DR01:Superheat_ref", "id": 131, "target": 1, "units": "degreesCelsius"},
+	{"name": "WC:ON_FEEDBACK", "id": 132, "target": 1, "units": "noUnits"}
 ]

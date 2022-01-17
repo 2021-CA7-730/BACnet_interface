@@ -31,6 +31,7 @@ HVAC_IP = "172.26.12.106"
 WC_IP = "172.26.12.136"
 
 DELL_PORT = 25000
+DELL_PORT2 = 25001
 HVAC_PORT = 25000
 HVAC_PORT_TRANSMIT = 4796
 WC_PORT = 25000
@@ -40,6 +41,11 @@ sock = socket.socket(socket.AF_INET,  # Internet
                      socket.SOCK_DGRAM)  # UDP
 sock.bind((DELL_IP, DELL_PORT))
 sock.settimeout(0.00001)
+
+sock2 = socket.socket(socket.AF_INET,  # Internet
+                     socket.SOCK_DGRAM)  # UDP
+sock2.bind((DELL_IP, DELL_PORT2))
+sock2.settimeout(0.00001)
 
 # objects are passed as reference so passing the socket is not a problem
 
@@ -151,7 +157,7 @@ def main():
     interface1 = SimulinkInterface(
         (HVAC_IP, HVAC_PORT_TRANSMIT), (HVAC_IP, HVAC_PORT), sock)
     interface2 = SimulinkInterface(
-        (WC_IP, WC_PORT_TRANSMIT), (WC_IP, WC_PORT), sock)
+        (WC_IP, WC_PORT_TRANSMIT), (WC_IP, WC_PORT), sock2)
     interface_list = (interface1, interface2)
     ACTUATOR_DICT = {k: 0 for k in range(1, 256)}
     SENSOR_DICT = {k: 0 for k in range(1, 256)}
@@ -210,6 +216,7 @@ def main():
                 ActuatorValueProperty('presentValue', actuator['id'],
                                       actuator['target'], interface_list, ACTUATOR_DICT))
             this_application.add_object(actuator_object)
+        
 
         run()
         _log.debug("running")
